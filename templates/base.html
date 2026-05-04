@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SA TODO - Tasks{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="">
+
+    <header>
+        <nav class = "bg-blue-600 text-gray-900 max-h-full">
+            <div class="max-w-4xl mx-auto -flex justify-between items-center">
+                <h1 class="text-xl font-bold px-4 py-5 text-white">SA TODO</h1>
+                <div>
+                    <a href=""></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4">
+        <div>
+            <!-- flash messages -->
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == "success" %}
+                            <div class="border border-green-500 bg-green-100 rounded-md px-3 py-3 mb-2">
+                                <p class="{{ category }}">{{ message }}</p>
+                            </div>
+                        {% else %}
+                            <div class="border border-red-500 bg-red-100 rounded-md px-3 py-3 mb-2">
+                                <p class="{{ category }}">{{ message }}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

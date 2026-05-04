@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Adding Tasks -->
+<form action="/" method="POST" class="my-auto w-full shadow-lg py-5">
+    <div class="flex flex-col items-center">
+        <div class="flex flex-row w-2/3">
+            <input type="text" name="NOTE" class="ml-auto border border-black rounded-l-md w-2/3 px-3 py-2" placeholder="What do you want to do">
+            <button type="submit" name="ADD" class="bg-blue-500 mr-auto text-white px-4 py-2 rounded-r-md border border-black" >Add</button>
+        </div>
+    </div>
+</form>
+
+<!-- list of pending tasks -->
+<h2 class="text-lg font-semibold mt-6 mb-2">Pending({{ pending|length }})</h2>
+<div>
+    {% if pending %}
+        {% for task in tasks %}
+            {% if not task.done %}
+                <form action="/" method="POST">
+                    <div class="flex flex-row items-center shadow-sm border-b border-gray-200">
+                        <p class="py-2 pl-2 flex-1">{{ task.note }}</p>
+                        <button type="submit" name="COMPLETE" value="{{ loop.index0 }}" class="bg-green-500 text-white px-3 py-1 rounded mr-2 text-sm">Done</button>
+                        <button type="submit" name="DELETE" value="{{ loop.index0 }}" class="bg-red-500 text-white px-3 py-1 rounded mr-2 text-sm">Delete</button>
+                    </div>
+                </form>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-400">No pending tasks!</p>
+    {% endif %}
+</div>
+
+<!-- list of tasks that are done -->
+<h2 class="text-lg font-semibold mt-6 mb-2"> Done({{ done|length}})</h2>
+<div>
+    {% if done %}
+        {% for task in tasks %}
+            {% if task.done %}
+                <form action="/" method="POST">
+                    <div class="flex flex-row items-center shadow-sm border-b border-gray-200">
+                        <p class="py-2 pl-2 flex-1">{{ task.note }}</p>
+                        <button type="submit" name="DELETE" value="{{ loop.index0 }}" class="bg-red-500 text-white px-3 py-1 rounded mr-2 text-sm">Delete</button>
+                    </div>
+                </form>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-400">No tasks have been completed!</p>
+    {% endif %}
+</div>
+{% endblock %}
