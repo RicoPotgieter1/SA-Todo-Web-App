@@ -1,0 +1,5 @@
+Requirements:
+- Flask
+- Python 3.x
+- pytest
+- dotenv
